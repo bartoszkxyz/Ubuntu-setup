@@ -1,0 +1,29 @@
+#!/bin/bash
+. /etc/lsb-release
+echo "Checking Ubuntu Version --code made for 20.04 release"
+if [ $DISTRIB_RELEASE != "20.04" ]
+then
+echo "nope, version differs, cant run"
+else
+echo "yep, legit version, code will run now"
+fi
+
+if [ cat < /dev/null > /dev/tcp/8.8.8.8/53; $? != 0 ]
+then
+echo "no connection, cant proceed"
+exit 1
+fi
+
+execute () {
+echo "$ $*"
+OUTPUT=$($@ 2>&1)
+if [ $? -ne 0 ]; then
+echo "$OUTPUT"
+echo ""
+echo "Failed to Execute $*" >&2
+exit 1
+fi
+}
+execute sudo apt-get update -y
+execute sudo apt-get upgrade -y
+execute sudo apt-get install ubuntu-restricted-extras -y
