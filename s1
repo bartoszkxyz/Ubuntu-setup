@@ -3,25 +3,26 @@
 echo "Checking Ubuntu Version --code made for 20.04 release"
 if [ $DISTRIB_RELEASE != "20.04" ]
 then
-echo "nope, version differs, cant run"
+	echo "nope, version differs, cant run"
+	exit 1
 else
-echo "yep, legit version, code will run now"
+	echo "yep, legit version, code will run now"
 fi
 
-if [ cat < /dev/null > /dev/tcp/8.8.8.8/53; $? != 0 ]
+if [ ! "' ping -c 1 google.com'" ]
 then
-echo "no connection, cant proceed"
-exit 1
+	echo "offline, cant proceed"
+	exit 1
 fi
 
 execute () {
 echo "$ $*"
 OUTPUT=$($@ 2>&1)
 if [ $? -ne 0 ]; then
-echo "$OUTPUT"
-echo ""
-echo "Failed to Execute $*" >&2
-exit 1
+	echo "$OUTPUT"
+	echo ""
+	echo "Failed to Execute $*" >&2
+	exit 1
 fi
 }
 execute sudo apt-get update -y
