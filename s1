@@ -20,7 +20,7 @@ echo "$ $*"
 OUTPUT=$($@ 2>&1)
 if [ $? -ne 0 ]; then
 	echo "$OUTPUT"
-	echo ""
+echo ""
 	echo "Failed to Execute $*" >&2
 	exit 1
 fi
@@ -28,3 +28,4 @@ fi
 execute sudo apt-get update -y
 execute sudo apt-get upgrade -y
 execute sudo apt-get install ubuntu-restricted-extras -y
+execute sudo apt-get install vim -y
