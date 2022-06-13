@@ -1,17 +1,21 @@
 #!/bin/bash
 . /etc/lsb-release
 echo "Checking Ubuntu Version --code made for 20.04 release"
-if [ $DISTRIB_RELEASE != "20.04" ]
+
+if [ $ID = "Ubuntu" ]
 then
-	echo "nope, version differs, cant run"
-	exit 1
+	if [ $DISTRIB_RELEASE = "20.04" ]
+	then
+	echo "yep, legit, script will run now"
 else
-	echo "yep, legit version, code will run now"
+	echo "nope, distro or version are wrong, make sure it's Ubuntu 20.04"
+	echo "Your distro is: $ID , $DISTRIB_RELEASE"
+	exit 1
 fi
 
 if [ ! "' ping -c 1 google.com'" ]
 then
-	echo "offline, cant proceed"
+	echo "you're offline-- cant proceed"
 	exit 1
 fi
 
@@ -29,3 +33,14 @@ execute sudo apt-get update -y
 execute sudo apt-get upgrade -y
 execute sudo apt-get install ubuntu-restricted-extras -y
 execute sudo apt-get install vim -y
+
+# creating vim tree and copying personal vim config file
+mkdir -p ~/.vim ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
+cp ./vimrc.local/ ~/.vim/
+
+#downloading system themes
+execute sudo apt install gnome-tweaks -y
+execute sudo apt install numix-icon-theme-circle -y
+
+#setting ssytem themes
+gsettings set org.gnome.desktop.interface icon-theme 'numix-icon-theme-circle'
