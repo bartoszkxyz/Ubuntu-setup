@@ -1,3 +1,5 @@
+WiP, dont judge me yet
+
 # Ubuntu-setup
 My script for setting up Ubuntu
 
