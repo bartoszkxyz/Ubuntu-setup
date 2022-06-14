@@ -19,6 +19,7 @@ then
 	exit 1
 fi
 
+#error catching and printing function
 execute () {
 echo "$ $*"
 OUTPUT=$($@ 2>&1)
@@ -29,18 +30,27 @@ echo ""
 	exit 1
 fi
 }
+
+
 execute sudo apt-get update -y
 execute sudo apt-get upgrade -y
 execute sudo apt-get install ubuntu-restricted-extras -y
 execute sudo apt-get install vim -y
 
 # creating vim tree and copying personal vim config file
-mkdir -p ~/.vim ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
-cp ./vimrc.local/ ~/.vim/
+execute mkdir -p ~/.vim ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
+execute cp ./vimrc.local/ ~/.vim/
 
 #downloading system themes
 execute sudo apt install gnome-tweaks -y
 execute sudo apt install numix-icon-theme-circle -y
 
-#setting ssytem themes
-gsettings set org.gnome.desktop.interface icon-theme 'numix-icon-theme-circle'
+#setting sytem themes
+execute gsettings set org.gnome.desktop.interface icon-theme 'numix-icon-theme-circle'
+
+
+
+#users prompts
+#how many
+#user names and passwords
+
