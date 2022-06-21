@@ -2,11 +2,12 @@
 . /etc/lsb-release
 echo "Checking Ubuntu Version --code made for 20.04 release"
 
-if [ $ID = "Ubuntu" ]
+if [ $DISTRIB_ID = "Ubuntu" ]
 then
 	if [ $DISTRIB_RELEASE = "20.04" ]
 	then
 	echo "yep, legit, script will run now"
+	fi
 else
 	echo "nope, distro or version are wrong, make sure it's Ubuntu 20.04"
 	echo "Your distro is: $ID , $DISTRIB_RELEASE"
@@ -32,9 +33,9 @@ fi
 }
 
 
-execute sudo apt-get update -y
-execute sudo apt-get upgrade -y
-execute sudo apt-get install ubuntu-restricted-extras -y
+#execute sudo apt-get update -y
+#execute sudo apt-get upgrade -y
+#execute sudo apt-get install ubuntu-restricted-extras -y
 execute sudo apt-get install vim -y
 
 # creating vim tree and copying personal vim config file
@@ -47,10 +48,22 @@ execute sudo apt install numix-icon-theme-circle -y
 
 #setting sytem themes
 execute gsettings set org.gnome.desktop.interface icon-theme 'numix-icon-theme-circle'
-
+execute sudo apt install neofetch
 
 
 #users prompts
 #how many
-#user names and passwords
+echo "Ile uzytkownikow chcesz stworzyc"
+read ilosc
+echo "Wprowadz prefix uzytkownika"
+read prefix
+num = 0
+while [ $num != $ilosc ]
+do
+	execute sudo useradd -m $prefix$num
+	execute $passwd | passwd $username $prefix$num
+	$num++
+done
 
+clear
+neofetch 
