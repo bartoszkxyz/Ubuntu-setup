@@ -39,7 +39,7 @@ fi
 execute sudo apt-get install vim -y
 
 # creating vim tree and copying personal vim config file
-execute mkdir -p ~/.vim ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
+execute mkdir -p ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
 execute cp ./vimrc.local/ ~/.vim/
 
 #downloading system themes
@@ -55,6 +55,8 @@ execute sudo apt install neofetch
 #how many
 echo "Ile uzytkownikow chcesz stworzyc"
 read ilosc
+if [ $ilosc > 0 ]
+then
 echo "Wprowadz prefix uzytkownika"
 read prefix
 num = 0
@@ -64,6 +66,7 @@ do
 	execute $passwd | passwd $username $prefix$num
 	$num++
 done
+fi
 
 clear
 neofetch 
