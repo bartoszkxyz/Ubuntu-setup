@@ -1,5 +1,5 @@
 #!/bin/bash
-. /etc/lsb-release
+./etc/lsb-release
 echo "Checking Ubuntu Version --code made for 20.04 release"
 
 if [ $DISTRIB_ID = "Ubuntu" ]
@@ -33,39 +33,43 @@ fi
 }
 
 
-#execute sudo apt-get update -y
-#execute sudo apt-get upgrade -y
-#execute sudo apt-get install ubuntu-restricted-extras -y
+execute sudo apt-get update -y
+execute sudo apt-get upgrade -y
+execute sudo apt-get install ubuntu-restricted-extras -y
 execute sudo apt-get install vim -y
+execute sudo apt-get install neofetch -y
+execute sudo apt-get install gnome-tweaks -y
+execute sudo apt-get install hollywood -y
+execute sudo apt-get install gnome-shell-extensions -y
+
 
 # creating vim tree and copying personal vim config file
-execute mkdir -p ~/.vim/autoload ~/.vim/backup ~/.vim/colors ~/.vim/plugged
-execute cp ./vimrc.local/ ~/.vim/
+execute sudo cp ./vimrc.local/ /etc/vim/
 
 #downloading system themes
-execute sudo apt install gnome-tweaks -y
 execute sudo apt install numix-icon-theme-circle -y
 
 #setting sytem themes
-execute gsettings set org.gnome.desktop.interface icon-theme 'numix-icon-theme-circle'
-execute sudo apt install neofetch
-
+execute gsettings set org.gnome.desktop.interface icon-theme 'Numix-Circle'
+execute gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-Dark'
 
 #users prompts
 #how many
 echo "Ile uzytkownikow chcesz stworzyc"
 read ilosc
-if [ $ilosc > 0 ]
+if [ $ilosc != 0 ]
 then
 echo "Wprowadz prefix uzytkownika"
 read prefix
-num = 0
+num=0
 while [ $num != $ilosc ]
 do
 	execute sudo useradd -m $prefix$num
 	execute $passwd | passwd $username $prefix$num
 	$num++
 done
+else
+echo ""
 fi
 
 clear
